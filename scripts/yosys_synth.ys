@@ -1,5 +1,6 @@
 # Yosys synthesis — logic synthesis + cell statistics
 # Usage: yosys -s scripts/yosys_synth.ys
+# Report: synth/reports/yosys_latest.log (via scripts/synth_report.ps1)
 
 # --- mac_unit ---
 read_verilog -sv rtl/mac/mac_unit.sv
@@ -19,6 +20,24 @@ stat -top mac_array
 write_verilog synth/yosys/mac_array_syn.v
 design -reset
 
+# --- pe (systolic processing element) ---
+read_verilog -sv rtl/systolic/pe.sv
+hierarchy -top pe
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+stat -top pe
+write_verilog synth/yosys/pe_syn.v
+design -reset
+
+# --- sync_sram (memory primitive) ---
+read_verilog -sv rtl/mem/sync_sram.sv
+hierarchy -top sync_sram
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+stat -top sync_sram
+write_verilog synth/yosys/sync_sram_syn.v
+design -reset
+
 # --- shader_core ---
 read_verilog -sv rtl/core/vector_rom.sv
 read_verilog -sv rtl/core/warp_scheduler.sv
@@ -29,13 +48,7 @@ proc; opt; fsm; opt; memory; opt
 techmap; opt
 stat -top shader_core
 write_verilog synth/yosys/shader_core_syn.v
+design -reset
 
-# systolic_gemm (256 PEs @ 16x16) — sim verified; Yosys needs loop unrolling for controller
-# read_verilog -sv rtl/systolic/pe.sv
-# read_verilog -sv rtl/systolic/systolic_mesh.sv
-# read_verilog -sv rtl/systolic/systolic_gemm.sv
-# hierarchy -top systolic_gemm
-# proc; opt; fsm; opt; memory; opt
-# techmap; opt
-# stat -top systolic_gemm
-# write_verilog synth/yosys/systolic_gemm_syn.v
+# systolic_gemm / systolic_mesh — sim verified; Yosys needs generate unrolling for 256-PE mesh
+# act_unit — uses act_pkg import; pending synthesis wrapper (see docs/SYNTHESIS.md)

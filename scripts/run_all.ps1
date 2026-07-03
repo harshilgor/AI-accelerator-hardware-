@@ -26,4 +26,9 @@ Write-Host "=== Yosys synthesis ==="
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host ""
+Write-Host "=== Gate-level equivalence (cosim) ==="
+& "$PSScriptRoot\gate_equiv.ps1" -Quick
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host ""
 Write-Host "=== FULL STACK PASSED ==="

@@ -1,0 +1,7 @@
+# Formal equivalence — mac_unit via equiv_opt (recommended; ~10 min)
+# Faster alternative: equiv_mac_unit_simple.ys (equiv_simple, bit-blasts internals)
+
+read_verilog -sv rtl/mac/mac_unit.sv
+hierarchy -top mac_unit
+proc; opt; fsm; opt; memory; opt
+equiv_opt -async2sync -undef -assert techmap

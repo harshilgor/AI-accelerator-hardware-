@@ -1,0 +1,23 @@
+# Formal equivalence — mac_array (4-lane MAC sum)
+
+read_verilog -sv rtl/mac/mac_array.sv
+hierarchy -top mac_array
+proc; opt; fsm; opt; memory; opt
+async2sync
+rename -top gold
+design -stash gold
+
+read_verilog -sv rtl/mac/mac_array.sv
+hierarchy -top mac_array
+proc; opt; fsm; opt; memory; opt
+async2sync
+techmap; opt
+setundef -zero
+rename -top gate
+design -stash gate
+
+design -import gold -as gold
+design -import gate -as gate
+equiv_make -inames gold gate equiv
+equiv_simple
+equiv_status -assert

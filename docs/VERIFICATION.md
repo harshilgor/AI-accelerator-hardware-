@@ -22,7 +22,7 @@ This document summarizes test coverage, randomized regression scale, corner case
 | Unit / regression tests | pytest | `verify/test_*.py` |
 | RTL simulation | Icarus / Verilator | `tb/`, `scripts/verilator_sim.ps1` |
 | Lint | Verilator | `scripts/verilator_lint.ps1` |
-| Synthesis (selected blocks) | Yosys | `scripts/yosys_synth.ps1` |
+| Synthesis (selected blocks) | Yosys | `scripts/synth_report.ps1`, `docs/SYNTHESIS.md` |
 
 **Full regression command:**
 
@@ -176,8 +176,8 @@ RANDOM_TRIALS_SIZE16_WS = 150
 | 1 | Architecture specification | Done |
 | 2 | Randomized verification | **Done** — [docs/VERIFICATION.md](docs/VERIFICATION.md) |
 | 3 | OpenROAD synthesis + area/timing | Planned |
-| 4 | Gate-level equivalence | Planned |
-| 5 | Technical write-up | Planned |
+| 4 | Gate-level equivalence | **Done** — [docs/GATELEVEL.md](docs/GATELEVEL.md) |
+| 5 | Technical write-up | **Done** — [docs/WRITEUP.md](docs/WRITEUP.md) |
 
 ---
 

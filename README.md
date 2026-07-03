@@ -21,6 +21,7 @@ The project is built for **computer architecture engineering**: clean RTL hierar
 | **Shader core** | Warp-scheduled dot-product engine (SIMT-style, 2 warps) |
 | **Verification** | Cycle-accurate Python models + pytest + Verilator + Icarus sim |
 | **Synthesis** | Yosys flow for MAC, shader core, and selected blocks |
+| **Gate-level equiv** | Yosys formal + RTL/gate cosim — [docs/GATELEVEL.md](docs/GATELEVEL.md) |
 
 **Peak throughput (OS mode, 100 MHz):** ~6.5 GOPS INT16 for 16×16 GEMM
 
@@ -43,7 +44,10 @@ shader_core (standalone) — warp scheduler + MAC array for vector dot products
 ```
 
 **Full specification:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)  
-**Verification report:** [docs/VERIFICATION.md](docs/VERIFICATION.md)
+**Verification report:** [docs/VERIFICATION.md](docs/VERIFICATION.md)  
+**Synthesis report:** [docs/SYNTHESIS.md](docs/SYNTHESIS.md)  
+**Gate-level equivalence:** [docs/GATELEVEL.md](docs/GATELEVEL.md)  
+**Technical write-up (OS vs WS):** [docs/WRITEUP.md](docs/WRITEUP.md)
 
 ---
 
@@ -95,6 +99,22 @@ This runs, in order:
 python -m pytest verify/ -v
 ```
 
+### Gate-level equivalence (Phase 4)
+
+```powershell
+.\scripts\gate_equiv.ps1 -Quick    # RTL vs Yosys netlist cosim (~5 s)
+.\scripts\gate_equiv.ps1           # cosim + formal Yosys equiv (~15 min)
+```
+
+See [docs/GATELEVEL.md](docs/GATELEVEL.md).
+
+See [docs/GATELEVEL.md](docs/GATELEVEL.md).
+
+### Technical write-up (Phase 5)
+
+[docs/WRITEUP.md](docs/WRITEUP.md) — OS vs WS systolic dataflow: cycle-level behavior, bandwidth trade-offs, and verification evidence.  
+[docs/LINKEDIN.md](docs/LINKEDIN.md) — copy-paste LinkedIn post versions.
+
 ### Run a single simulation target
 
 ```powershell
@@ -137,6 +157,7 @@ Every major RTL block has a **Python golden model** that mirrors hardware timing
 | Shader core | `verify/golden_shader_core.py` | `test_shader_core.py` |
 | Systolic GEMM | `verify/golden_systolic.py` | `test_systolic.py` (OS + WS) |
 | Activation | `verify/golden_activation.py` | `test_activation.py` |
+| Gate-level equiv | `verify/test_gate_equiv.py` | RTL vs Yosys netlist cosim |
 
 Regression is a single command: `.\scripts\run_all.ps1`
 
@@ -148,9 +169,9 @@ Regression is a single command: `.\scripts\run_all.ps1`
 |-------|------|--------|
 | 1 | Architecture specification | Done — [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | 2 | Large-scale randomized verification | Done — [docs/VERIFICATION.md](docs/VERIFICATION.md) |
-| 3 | OpenROAD synthesis + area/timing (SkyWater 130nm) | Planned |
-| 4 | Gate-level equivalence | Planned |
-| 5 | Technical write-up (OS vs WS dataflow) | Planned |
+| 3 | OpenROAD synthesis + area/timing (SkyWater 130nm) | Done (Yosys) — [docs/SYNTHESIS.md](docs/SYNTHESIS.md); OpenROAD optional |
+| 4 | Gate-level equivalence | Done — [docs/GATELEVEL.md](docs/GATELEVEL.md) |
+| 5 | Technical write-up (OS vs WS dataflow) | Done — [docs/WRITEUP.md](docs/WRITEUP.md) |
 
 ---
 

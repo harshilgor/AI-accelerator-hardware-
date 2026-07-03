@@ -1,0 +1,24 @@
+# Formal equivalence — mac_unit (full state, Yosys equiv_simple)
+# Runtime: ~5–15 min on mac_unit (2252 cells after techmap). Use gate_equiv.ps1.
+
+read_verilog -sv rtl/mac/mac_unit.sv
+hierarchy -top mac_unit
+proc; opt; fsm; opt; memory; opt
+async2sync
+rename -top gold
+design -stash gold
+
+read_verilog -sv rtl/mac/mac_unit.sv
+hierarchy -top mac_unit
+proc; opt; fsm; opt; memory; opt
+async2sync
+techmap; opt
+setundef -zero
+rename -top gate
+design -stash gate
+
+design -import gold -as gold
+design -import gate -as gate
+equiv_make -inames gold gate equiv
+equiv_simple
+equiv_status -assert

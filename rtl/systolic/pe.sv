@@ -25,7 +25,7 @@ module pe #(
     output logic signed [ACC_W-1:0]     accum
 );
 
-    import gpu_pkg::*;
+    localparam logic [1:0] MODE_WEIGHT_STATIONARY = 2'b01;  // gpu_pkg::MODE_WEIGHT_STATIONARY
 
     logic signed [ACC_W-1:0] acc_r;
     logic signed [WIDTH-1:0] weight_reg;

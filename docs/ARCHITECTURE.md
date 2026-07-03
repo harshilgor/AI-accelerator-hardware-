@@ -375,9 +375,10 @@ WS mode takes more cycles than OS but reduces B-matrix streaming during the comp
 |-------|-------------|--------------|
 | **1** | This architecture spec | System design, trade-off documentation |
 | **2** | Randomized verification (1000+ matrices) | Done — [VERIFICATION.md](VERIFICATION.md) |
-| **3** | OpenROAD synthesis + area/timing report | Physical awareness |
-| **4** | Gate-level equivalence check | Signoff mindset |
-| **5** | Technical blog / paper on OS vs WS | Communication |
+| **3** | Yosys synthesis + area/timing report | Done — [SYNTHESIS.md](SYNTHESIS.md) |
+| **3b** | OpenROAD Sky130 physical synthesis | Optional (needs ORFS) |
+| **4** | Gate-level equivalence check | Done — [docs/GATELEVEL.md](GATELEVEL.md) |
+| **5** | Technical blog / paper on OS vs WS | Done — [docs/WRITEUP.md](WRITEUP.md) |
 
 **Architecture extensions (v2):**
 

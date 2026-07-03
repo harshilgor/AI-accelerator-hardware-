@@ -2,6 +2,7 @@ sim/*.vvp
 sim/*.vcd
 sim/verilator_*/
 synth/yosys/*.v
+synth/reports/*.log
 *.log
 __pycache__/
 .pytest_cache/
