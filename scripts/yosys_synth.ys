@@ -1,0 +1,41 @@
+# Yosys synthesis — logic synthesis + cell statistics
+# Usage: yosys -s scripts/yosys_synth.ys
+
+# --- mac_unit ---
+read_verilog -sv rtl/mac/mac_unit.sv
+hierarchy -top mac_unit
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+stat -top mac_unit
+write_verilog synth/yosys/mac_unit_syn.v
+design -reset
+
+# --- mac_array ---
+read_verilog -sv rtl/mac/mac_array.sv
+hierarchy -top mac_array
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+stat -top mac_array
+write_verilog synth/yosys/mac_array_syn.v
+design -reset
+
+# --- shader_core ---
+read_verilog -sv rtl/core/vector_rom.sv
+read_verilog -sv rtl/core/warp_scheduler.sv
+read_verilog -sv rtl/mac/mac_array.sv
+read_verilog -sv rtl/core/shader_core.sv
+hierarchy -top shader_core
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+stat -top shader_core
+write_verilog synth/yosys/shader_core_syn.v
+
+# systolic_gemm (256 PEs @ 16x16) — sim verified; Yosys needs loop unrolling for controller
+# read_verilog -sv rtl/systolic/pe.sv
+# read_verilog -sv rtl/systolic/systolic_mesh.sv
+# read_verilog -sv rtl/systolic/systolic_gemm.sv
+# hierarchy -top systolic_gemm
+# proc; opt; fsm; opt; memory; opt
+# techmap; opt
+# stat -top systolic_gemm
+# write_verilog synth/yosys/systolic_gemm_syn.v
