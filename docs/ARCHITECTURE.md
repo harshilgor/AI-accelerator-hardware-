@@ -374,7 +374,7 @@ WS mode takes more cycles than OS but reduces B-matrix streaming during the comp
 | Phase | Deliverable | Career value |
 |-------|-------------|--------------|
 | **1** | This architecture spec | System design, trade-off documentation |
-| **2** | Randomized verification (1000+ matrices) | Verification discipline |
+| **2** | Randomized verification (1000+ matrices) | Done — [VERIFICATION.md](VERIFICATION.md) |
 | **3** | OpenROAD synthesis + area/timing report | Physical awareness |
 | **4** | Gate-level equivalence check | Signoff mindset |
 | **5** | Technical blog / paper on OS vs WS | Communication |

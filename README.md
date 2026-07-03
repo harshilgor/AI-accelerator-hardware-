@@ -42,7 +42,8 @@ Host Load/Store
 shader_core (standalone) — warp scheduler + MAC array for vector dot products
 ```
 
-**Full specification:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+**Full specification:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)  
+**Verification report:** [docs/VERIFICATION.md](docs/VERIFICATION.md)
 
 ---
 
@@ -146,7 +147,7 @@ Regression is a single command: `.\scripts\run_all.ps1`
 | Phase | Goal | Status |
 |-------|------|--------|
 | 1 | Architecture specification | Done — [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| 2 | Large-scale randomized verification | Planned |
+| 2 | Large-scale randomized verification | Done — [docs/VERIFICATION.md](docs/VERIFICATION.md) |
 | 3 | OpenROAD synthesis + area/timing (SkyWater 130nm) | Planned |
 | 4 | Gate-level equivalence | Planned |
 | 5 | Technical write-up (OS vs WS dataflow) | Planned |
